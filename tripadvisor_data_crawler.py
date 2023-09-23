@@ -19,14 +19,11 @@ class WebCrawler:
         self.hotel_info_output_path = hotel_info_output_path
         self.review_output_path = review_output_path
 
-    def setting_driver(self):
+
+    def open_url(self):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         driver = webdriver.Chrome(options=options)
-        return driver
-
-    def open_url(self):
-        driver = self.setting_driver()
         driver.get(self.city_url)
         driver.maximize_window()
         time.sleep(3)
@@ -42,7 +39,9 @@ class WebCrawler:
         return num_hotels
 
     def collect_info(self):
-        driver = self.setting_driver()
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        driver = webdriver.Chrome(options=options)
         hotel_names = driver.find_elements("xpath", '//div[@class="nBrpc Wd o W"]')
 
         page_hotel_names = []
@@ -70,7 +69,9 @@ class WebCrawler:
         return df
 
     def next_page(self):
-        driver = self.setting_driver()
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        driver = webdriver.Chrome(options=options)
         driver.find_element("xpath", '//a[@aria-label="Next page"]').click()
 
 
@@ -91,7 +92,9 @@ class WebCrawler:
         return hotel_url_df
 
     def get_hotel_info(self,url):
-        driver = self.setting_driver()
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        driver = webdriver.Chrome(options=options)
         driver.get(url)
         driver.maximize_window()
         time.sleep(2)
@@ -136,7 +139,9 @@ class WebCrawler:
         return hotel_url_df
 
     def get_review_info(self):
-        driver = self.setting_driver()
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        driver = webdriver.Chrome(options=options)
         reviews = driver.find_elements("xpath", '//div[@class="YibKl MC R2 Gi z Z BB pBbQr"]')
 
         page_review_info = []
@@ -225,7 +230,9 @@ class WebCrawler:
         return page_review_info
 
     def review_next_page(self):
-        driver = self.setting_driver()
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        driver = webdriver.Chrome(options=options)
         driver.find_element("xpath", '//a[@class="ui_button nav next primary "]').click()
 
     def crawl_reviews_by_hotel(self):
